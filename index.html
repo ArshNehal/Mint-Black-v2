@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mint Black v2 | Tasks in Pure Darkness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pure-black: #000000;
+            --dark-grey: #080808;
+            --card-grey: #111111;
+            --hover-grey: #181818;
+            --mint-accent: #00FF9D;
+            --text-primary: #FFFFFF;
+            --text-secondary: #888888;
+            --mint-glow: rgba(0, 255, 157, 0.25);
+            --transition-smooth: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --sidebar-width: 260px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            outline: none;
+        }
+
+        body, html {
+            background-color: var(--pure-black);
+            color: var(--text-primary);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hidden { display: none !important; }
+
+        /* --- Landing Screen --- */
+        #landing-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--pure-black);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 2000;
+            text-align: center;
+            transition: opacity 1s var(--transition-smooth), transform 1s var(--transition-smooth);
+        }
+
+        .glow-orb {
+            position: absolute;
+            width: 70vh; height: 70vh;
+            background: radial-gradient(circle, var(--mint-glow) 0%, transparent 70%);
+            filter: blur(100px);
+            z-index: -1;
+            animation: orbFloat 20s infinite ease-in-out;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            33% { transform: translate(50px, -50px) scale(1.1); opacity: 0.5; }
+            66% { transform: translate(-30px, 40px) scale(0.9); opacity: 0.2; }
+        }
+
+        .landing-content { max-width: 600px; padding: 2rem; }
+
+        .status-badge {
+            color: var(--mint-accent);
+            font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.4em; padding: 0.5rem 1rem;
+            border: 1px solid var(--mint-accent); border-radius: 100px;
+            margin-bottom: 2rem; display: inline-block;
+            opacity: 0.8;
+            animation: fadeInDown 0.8s var(--transition-smooth);
+        }
+
+        .brand-title { 
+            font-size: 4.5rem; font-weight: 800; letter-spacing: -0.06em; margin-bottom: 1rem; 
+            animation: fadeInUp 1s var(--transition-smooth) 0.1s backwards;
+        }
+        .brand-title span { color: var(--mint-accent); text-shadow: 0 0 25px var(--mint-glow); }
+
+        .hero-text { 
+            color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 3.5rem; font-weight: 300; 
+            letter-spacing: 0.02em;
+            animation: fadeInUp 1s var(--transition-smooth) 0.2s backwards;
+        }
+
+        .primary-btn {
+            background: var(--mint-accent); color: var(--pure-black);
+            border: none; padding: 1.1rem 3rem; font-size: 1rem; font-weight: 800;
+            border-radius: 1rem; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 0.8rem;
+            transition: var(--transition-bounce);
+            animation: fadeInUp 1s var(--transition-smooth) 0.3s backwards;
+        }
+
+        .primary-btn:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 50px var(--mint-glow); }
+
+        /* --- App Layout --- */
+        .app-layout {
+            display: grid;
+            grid-template-columns: var(--sidebar-width) 1fr;
+            height: 100vh;
+            width: 100vw;
+            background: var(--pure-black);
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .app-layout.visible { opacity: 1; }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            background: var(--pure-black);
+            border-right: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 2.5rem 1.5rem;
+            display: flex; flex-direction: column;
+        }
+
+        .sidebar-header { 
+            display: flex; align-items: center; gap: 0.8rem; margin-bottom: 4rem; 
+            animation: fadeInLeft 0.8s var(--transition-smooth);
+        }
+        .mint-logo { 
+            width: 32px; height: 32px; 
+            background: var(--mint-accent); 
+            border-radius: 8px; 
+            display: flex; align-items: center; justify-content: center; 
+            box-shadow: 0 0 15px var(--mint-glow);
+            animation: logoPulse 4s infinite;
+        }
+        @keyframes logoPulse {
+            0%, 100% { box-shadow: 0 0 15px var(--mint-glow); }
+            50% { box-shadow: 0 0 25px var(--mint-accent); }
+        }
+
+        .sidebar-header h2 { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; }
+
+        .nav-section { margin-bottom: 3rem; }
+        .nav-section label { 
+            font-size: 0.6rem; font-weight: 700; text-transform: uppercase; 
+            color: var(--text-secondary); margin-bottom: 1.2rem; display: block; 
+            opacity: 0.4; letter-spacing: 0.2em; 
+            animation: fadeInLeft 0.8s var(--transition-smooth) 0.2s backwards;
+        }
+
+        .nav-link {
+            width: 100%; background: transparent; border: 1px solid transparent; color: var(--text-secondary);
+            display: flex; align-items: center; gap: 1rem; padding: 0.9rem 1rem;
+            border-radius: 0.8rem; cursor: pointer; font-size: 0.9rem; font-weight: 500;
+            transition: var(--transition-smooth); text-align: left; margin-bottom: 0.3rem;
+            animation: fadeInLeft 0.8s var(--transition-smooth) calc(0.3s + var(--delay, 0s)) backwards;
+        }
+
+        .nav-link:hover { color: var(--text-primary); background: var(--dark-grey); transform: translateX(5px); }
+        .nav-link.active { 
+            color: var(--mint-accent); 
+            background: rgba(0, 255, 157, 0.05); 
+            border-color: rgba(0, 255, 157, 0.1);
+        }
+
+        /* --- Main Content --- */
+        .content-area {
+            padding: 4rem 10% 2rem 10%;
+            overflow-y: auto;
+            background: var(--pure-black);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-shrink: 0; }
+        .content-header-left { display: flex; flex-direction: column; gap: 0.5rem; animation: fadeInUp 0.8s var(--transition-smooth); }
+        .content-header h2 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em; }
+
+        /* --- MOTIVATION TAB (IMPROVED) --- */
+        .motivation-view {
+            padding-bottom: 5rem;
+            animation: fadeIn 1s var(--transition-smooth);
+        }
+
+        .motivation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .quote-card {
+            background: var(--card-grey);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+        .quote-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--mint-accent);
+            opacity: 0.3;
+            transition: var(--transition-smooth);
+        }
+        .quote-card:hover {
+            background: var(--hover-grey);
+            transform: translateY(-8px);
+            border-color: rgba(0, 255, 157, 0.2);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+        .quote-card:hover::before {
+            opacity: 1;
+            box-shadow: 0 0 15px var(--mint-accent);
+        }
+
+        .quote-card p {
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .quote-card .decorator {
+            font-size: 0.6rem;
+            font-weight: 900;
+            color: var(--mint-accent);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+
+        .motivation-hero {
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 3rem;
+        }
+        .motivation-hero h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, var(--mint-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .search-bar { 
+            background: var(--dark-grey); padding: 0.7rem 1.2rem; border-radius: 1rem; 
+            display: flex; align-items: center; gap: 0.8rem; width: 260px; 
+            border: 1px solid rgba(255, 255, 255, 0.02); 
+            transition: var(--transition-smooth);
+            animation: fadeInUp 0.8s var(--transition-smooth) 0.1s backwards;
+        }
+        .search-bar:focus-within { border-color: rgba(0, 255, 157, 0.2); width: 300px; }
+        .search-bar input { background: transparent; border: none; color: #fff; font-size: 0.85rem; width: 100%; }
+
+        /* --- Progress Bar --- */
+        .progress-wrapper { height: 2px; width: 100%; background: rgba(255,255,255,0.03); margin-bottom: 2rem; border-radius: 1px; overflow: hidden; flex-shrink: 0; }
+        #completion-progress { height: 100%; width: 0%; background: var(--mint-accent); transition: width 0.8s var(--transition-smooth); box-shadow: 0 0 10px var(--mint-glow); }
+
+        /* --- Task Input --- */
+        .task-input-box { 
+            background: var(--card-grey); border-radius: 1.2rem; padding: 1.2rem 1.5rem; 
+            margin-bottom: 3rem; border: 1px solid rgba(255, 255, 255, 0.04); 
+            transition: var(--transition-smooth); flex-shrink: 0;
+            animation: fadeInUp 0.8s var(--transition-smooth) 0.2s backwards;
+        }
+        .task-input-box.hidden { display: none !important; }
+        .task-input-box:focus-within { border-color: var(--mint-accent); box-shadow: 0 0 30px var(--mint-glow); transform: translateY(-2px); }
+        .input-wrapper { display: flex; align-items: center; gap: 1.2rem; }
+        .plus-sign { color: var(--mint-accent); font-size: 2.2rem; font-weight: 200; line-height: 1; user-select: none; transition: var(--transition-smooth); }
+        .task-input-box:focus-within .plus-sign { transform: rotate(90deg); }
+        .task-input-box input { background: transparent; border: none; color: #fff; font-size: 1.1rem; width: 100%; }
+
+        /* --- Task List --- */
+        .task-list { display: flex; flex-direction: column; gap: 0.8rem; padding-bottom: 5rem; }
+        .task-item { 
+            background: var(--card-grey); padding: 1.3rem; border-radius: 1.2rem; 
+            display: flex; align-items: center; gap: 1.2rem; 
+            transition: var(--transition-smooth); 
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            animation: fadeInRight 0.6s var(--transition-smooth) backwards;
+        }
+        .task-item:hover { background: var(--hover-grey); transform: translateX(8px); border-color: rgba(0, 255, 157, 0.1); }
+
+        .check-container { 
+            width: 24px; height: 24px; border: 2px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 7px; cursor: pointer; display: flex; align-items: center; 
+            justify-content: center; transition: var(--transition-bounce); 
+        }
+        .check-container:hover { border-color: var(--mint-accent); transform: scale(1.1); }
+        .task-item.done .check-container { background: var(--mint-accent); border-color: var(--mint-accent); }
+        .check-container svg { opacity: 0; stroke: #000; transition: transform 0.3s var(--transition-bounce), opacity 0.2s; transform: scale(0.5); }
+        .task-item.done .check-container svg { opacity: 1; transform: scale(1); }
+
+        .task-text { flex: 1; font-size: 1.05rem; color: var(--text-primary); transition: var(--transition-smooth); }
+        .task-item.done .task-text { text-decoration: line-through; color: var(--text-secondary); opacity: 0.3; }
+
+        .delete-task { opacity: 0; background: transparent; border: none; color: var(--text-secondary); cursor: pointer; transition: var(--transition-smooth); padding: 0.5rem; }
+        .task-item:hover .delete-task { opacity: 0.6; }
+        .delete-task:hover { opacity: 1; color: #FF4B4B; transform: scale(1.1); }
+
+        .empty-state { text-align: center; padding-top: 5rem; color: var(--text-secondary); animation: fadeIn 1s var(--transition-smooth); }
+        .empty-icon { font-size: 3rem; margin-bottom: 1.5rem; opacity: 0.1; }
+
+        /* --- Animations --- */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeInLeft { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        #celebration { position: fixed; pointer-events: none; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; opacity: 0; transition: opacity 0.5s; }
+        .confetti-piece { position: absolute; width: 8px; height: 8px; background: var(--mint-accent); border-radius: 2px; animation: confettiFall 2s linear forwards; }
+        @keyframes confettiFall { to { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+        /* --- Scrollbar --- */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--pure-black); }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--mint-accent); }
+
+        @media (max-width: 900px) {
+            .app-layout { grid-template-columns: 70px 1fr; }
+            .sidebar h2, .sidebar label, .nav-link span { display: none; }
+            .content-area { padding: 3rem 1.5rem; }
+        }
+    </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+
+    <div id="celebration"></div>
+
+    <!-- Landing Screen -->
+    <section id="landing-screen">
+        <div class="glow-orb"></div>
+        <div class="landing-content">
+            <span class="status-badge">MINT BLACK v2</span>
+            <h1 class="brand-title">Mint <span>Black</span></h1>
+            <p class="hero-text">Productivity evolved for the minimalist mind.</p>
+            <button id="enter-app-btn" class="primary-btn">
+                Launch Workspace
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- Main App Container -->
+    <div id="main-app" class="app-layout hidden">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="mint-logo">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <h2>Mint Black</h2>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <label>Workspace</label>
+                    <button class="nav-link active" data-filter="all" style="--delay: 0.05s">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                        <span>All Goals</span>
+                    </button>
+                    <button class="nav-link" data-filter="motivation" style="--delay: 0.1s">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        <span>Motivation</span>
+                    </button>
+                    <button class="nav-link" data-filter="completed" style="--delay: 0.15s">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        <span>Archive</span>
+                    </button>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="content-area">
+            <header class="content-header">
+                <div class="content-header-left">
+                    <h2 id="current-view-name">All Goals</h2>
+                </div>
+                <div id="search-container" class="search-bar">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="search-input" placeholder="Search objectives...">
+                </div>
+            </header>
+
+            <div class="progress-wrapper">
+                <div id="completion-progress"></div>
+            </div>
+
+            <!-- Motivation Tab Content -->
+            <div id="motivation-view" class="motivation-view hidden">
+                <div class="motivation-hero">
+                    <h3>Lines of Power</h3>
+                    <div class="success-count-text" id="daily-stat">MINT BLACK PROTOCOL ACTIVE</div>
+                </div>
+                <div class="motivation-grid" id="motivation-grid">
+                    <!-- Cards will be injected by JS -->
+                </div>
+            </div>
+
+            <div id="task-input-box" class="task-input-box">
+                <div class="input-wrapper">
+                    <div class="plus-sign">+</div>
+                    <input type="text" id="new-task-input" placeholder="What's the next mission? (Press N)" autocomplete="off">
+                </div>
+            </div>
+
+            <div id="task-container" class="task-list"></div>
+
+            <div id="empty-state" class="empty-state hidden">
+                <div class="empty-icon">⌘</div>
+                <p id="empty-message">Nothing in the void.</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        class MintBlackCore {
+            constructor() {
+                this.tasks = [];
+                this.filter = 'all';
+                this.isCelebrated = false;
+
+                this.quotes = [
+                    "Focus is the only currency that matters.",
+                    "The void is where creation begins.",
+                    "Silence is the ultimate productivity.",
+                    "Discipline is choosing between what you want now and what you want most.",
+                    "Small steps lead to the peak.",
+                    "Quiet progress is still progress.",
+                    "Outwork your former self.",
+                    "Simplify. Then execute.",
+                    "The best way to get started is to quit talking and begin doing.",
+                    "Your future is created by what you do today, not tomorrow.",
+                    "Consistency beats talent every single time.",
+                    "Do it once. Do it right. Then move on.",
+                    "Pain is temporary. Results are forever.",
+                    "Excellence is not an act, but a habit.",
+                    "The mind is a tool. Sharpen it daily.",
+                    "Don't stop when you're tired. Stop when you're done.",
+                    "Success hidden in darkness is still success.",
+                    "Build in silence, let the work speak.",
+                    "Every mission requires total focus.",
+                    "Master the mundane to achieve the extraordinary."
+                ];
+
+                this.dom = {
+                    landing: document.getElementById('landing-screen'),
+                    app: document.getElementById('main-app'),
+                    container: document.getElementById('task-container'),
+                    input: document.getElementById('new-task-input'),
+                    inputBox: document.getElementById('task-input-box'),
+                    search: document.getElementById('search-input'),
+                    searchContainer: document.getElementById('search-container'),
+                    empty: document.getElementById('empty-state'),
+                    emptyMsg: document.getElementById('empty-message'),
+                    title: document.getElementById('current-view-name'),
+                    motivationView: document.getElementById('motivation-view'),
+                    motivationGrid: document.getElementById('motivation-grid'),
+                    progress: document.getElementById('completion-progress'),
+                    celebrate: document.getElementById('celebration')
+                };
+
+                this.loadState();
+                this.bindEvents();
+            }
+
+            bindEvents() {
+                document.getElementById('enter-app-btn')?.addEventListener('click', () => this.launch());
+
+                document.querySelectorAll('.nav-link[data-filter]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                        e.currentTarget.classList.add('active');
+                        this.filter = e.currentTarget.dataset.filter || 'all';
+                        this.updateViewTitle();
+                        this.render();
+                    });
+                });
+
+                this.dom.input?.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.addTask();
+                });
+
+                this.dom.search?.addEventListener('input', () => this.render());
+
+                window.addEventListener('keydown', (e) => {
+                    if (e.key.toLowerCase() === 'n' && document.activeElement !== this.dom.input && document.activeElement !== this.dom.search) {
+                        e.preventDefault();
+                        this.dom.input.focus();
+                    }
+                    if (e.key === 'Escape') {
+                        document.activeElement.blur();
+                    }
+                });
+            }
+
+            launch() {
+                this.dom.landing.style.opacity = '0';
+                this.dom.landing.style.transform = 'translateY(-20px)';
+                setTimeout(() => {
+                    this.dom.landing.classList.add('hidden');
+                    this.dom.app.classList.remove('hidden');
+                    requestAnimationFrame(() => {
+                        this.dom.app.classList.add('visible');
+                        this.render();
+                    });
+                }, 1000);
+            }
+
+            loadState() {
+                const data = localStorage.getItem('MB2_STORAGE_V5_FINAL');
+                if (data) {
+                    try { this.tasks = JSON.parse(data); } catch (e) { this.tasks = []; }
+                }
+            }
+
+            saveState() {
+                localStorage.setItem('MB2_STORAGE_V5_FINAL', JSON.stringify(this.tasks));
+                this.updateProgress();
+            }
+
+            addTask() {
+                const text = this.dom.input.value.trim();
+                if (!text) return;
+
+                const newTask = {
+                    id: Date.now().toString(),
+                    text,
+                    completed: false,
+                    createdAt: Date.now(),
+                    completedAt: null
+                };
+
+                this.tasks.unshift(newTask);
+                this.dom.input.value = '';
+                this.isCelebrated = false;
+                this.saveState();
+                this.render();
+            }
+
+            toggleTask(id) {
+                this.tasks = this.tasks.map(t => {
+                    if (t.id === id) {
+                        const nextState = !t.completed;
+                        return {
+                            ...t, 
+                            completed: nextState,
+                            completedAt: nextState ? Date.now() : null
+                        };
+                    }
+                    return t;
+                });
+                this.saveState();
+                this.render();
+                this.checkCelebration();
+            }
+
+            deleteTask(id) {
+                this.tasks = this.tasks.filter(t => t.id !== id);
+                this.saveState();
+                this.render();
+            }
+
+            updateViewTitle() {
+                const map = { all: 'All Goals', motivation: 'Motivation', completed: 'Archive' };
+                this.dom.title.style.opacity = '0';
+                this.dom.title.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    this.dom.title.innerText = map[this.filter];
+                    this.dom.title.style.opacity = '1';
+                    this.dom.title.style.transform = 'translateY(0)';
+                }, 200);
+            }
+
+            updateProgress() {
+                const total = this.tasks.length;
+                if (total === 0) {
+                    this.dom.progress.style.width = '0%';
+                    return;
+                }
+                const done = this.tasks.filter(t => t.completed).length;
+                this.dom.progress.style.width = `${(done / total) * 100}%`;
+            }
+
+            renderMotivation() {
+                this.dom.motivationGrid.innerHTML = '';
+                this.quotes.forEach((q, idx) => {
+                    const card = document.createElement('div');
+                    card.className = 'quote-card';
+                    card.style.animationDelay = `${idx * 0.05}s`;
+                    card.innerHTML = `
+                        <div class="decorator">Line ${idx + 1}</div>
+                        <p>${q}</p>
+                    `;
+                    this.dom.motivationGrid.appendChild(card);
+                });
+            }
+
+            checkCelebration() {
+                if (this.tasks.length > 0 && this.tasks.every(t => t.completed) && !this.isCelebrated) {
+                    this.isCelebrated = true;
+                    this.celebrate();
+                }
+            }
+
+            celebrate() {
+                this.dom.celebrate.style.opacity = '1';
+                this.dom.celebrate.innerHTML = '';
+                for(let i=0; i<60; i++) {
+                    const p = document.createElement('div');
+                    p.className = 'confetti-piece';
+                    p.style.left = Math.random() * 100 + 'vw';
+                    p.style.animationDelay = Math.random() * 1 + 's';
+                    p.style.backgroundColor = Math.random() > 0.5 ? 'var(--mint-accent)' : '#fff';
+                    this.dom.celebrate.appendChild(p);
+                }
+                setTimeout(() => { this.dom.celebrate.style.opacity = '0'; }, 3000);
+            }
+
+            render() {
+                const query = this.dom.search.value.toLowerCase();
+                let filtered = this.tasks.filter(t => t.text.toLowerCase().includes(query));
+
+                // Visibility logic
+                if (this.filter === 'all') {
+                    this.dom.inputBox.classList.remove('hidden');
+                    this.dom.container.classList.remove('hidden');
+                    this.dom.motivationView.classList.add('hidden');
+                    this.dom.searchContainer.classList.remove('hidden');
+                } else if (this.filter === 'motivation') {
+                    this.dom.inputBox.classList.add('hidden');
+                    this.dom.container.classList.add('hidden');
+                    this.dom.motivationView.classList.remove('hidden');
+                    this.dom.searchContainer.classList.add('hidden');
+                    this.renderMotivation();
+                } else {
+                    this.dom.inputBox.classList.add('hidden');
+                    this.dom.container.classList.remove('hidden');
+                    this.dom.motivationView.classList.add('hidden');
+                    this.dom.searchContainer.classList.remove('hidden');
+                }
+
+                if (this.filter === 'completed') {
+                    filtered = filtered.filter(t => t.completed);
+                    this.dom.emptyMsg.innerText = "Archive is empty.";
+                } else if (this.filter === 'all') {
+                    filtered = filtered.sort((a, b) => Number(a.completed) - Number(b.completed));
+                    this.dom.emptyMsg.innerText = "Void. Add a goal to start.";
+                }
+
+                this.dom.container.innerHTML = '';
+                
+                if (this.filter !== 'motivation') {
+                    if (filtered.length === 0) {
+                        this.dom.empty.classList.remove('hidden');
+                    } else {
+                        this.dom.empty.classList.add('hidden');
+                        filtered.forEach((task, idx) => {
+                            const el = document.createElement('div');
+                            el.className = `task-item ${task.completed ? 'done' : ''}`;
+                            el.dataset.taskId = task.id;
+                            el.style.animationDelay = `${idx * 0.04}s`;
+                            el.innerHTML = `
+                                <div class="check-container" title="Complete">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                </div>
+                                <span class="task-text">${this.escape(task.text)}</span>
+                                <button class="delete-task" title="Delete">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                </button>
+                            `;
+                            el.querySelector('.check-container').onclick = () => this.toggleTask(task.id);
+                            el.querySelector('.delete-task').onclick = () => this.deleteTask(task.id);
+                            this.dom.container.appendChild(el);
+                        });
+                    }
+                } else {
+                    this.dom.empty.classList.add('hidden');
+                }
+                
+                this.updateProgress();
+            }
+
+            escape(s) {
+                const t = document.createElement('textarea');
+                t.textContent = s;
+                return t.innerHTML;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => new MintBlackCore());
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
