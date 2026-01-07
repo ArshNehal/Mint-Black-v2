@@ -1,5 +1,6 @@
 <p align="center">
-  <img src="https://ibb.co/RpTVVKC9" width="140" alt="Mint Black v2 Logo">
+  <img src="https://i.ibb.co/RpTVVKC9/mint-black-logo.png
+" width="140" alt="Mint Black v2 Logo">
 </p>
 
 <h1 align="center">🌿 Introducing Mint Black v2</h1>
@@ -49,7 +50,8 @@ Perfect for:
 ## ✨ Key Features
 
 <p align="center">
-  <img src="https://ibb.co/k25hRg4y" width="750" alt="Mint Black v2 Features">
+  <img src="https://i.ibb.co/k25hRg4y/mint-black-features.png
+" width="750" alt="Mint Black v2 Features">
 </p>
 
 ### 🖤 Dark & Mint Design System
@@ -88,7 +90,8 @@ no login, no tracking, full privacy.
 ## 🧠 How Mint Black v2 Works
 
 <p align="center">
-  <img src="https://ibb.co/WNhDr47y" width="750" alt="How Mint Black v2 Works">
+  <img src="https://i.ibb.co/WNhDr47y/mint-black-workflow.png
+" width="750" alt="How Mint Black v2 Works">
 </p>
 
 1. **Launch the Workspace**  
