@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://drive.google.com/uc?export=view&id=176zHigdasdzjS0nLT6E6qeWDpQSuKZc6" width="140" alt="Mint Black v2 Logo">
+  <img src="https://ibb.co/RpTVVKC9" width="140" alt="Mint Black v2 Logo">
 </p>
 
 <h1 align="center">🌿 Introducing Mint Black v2</h1>
@@ -13,11 +13,14 @@
 
 ## 🖤 Overview
 
-**Mint Black v2** is a modern, minimalist productivity web application designed for people who value **focus, discipline, and clarity**.
+**Mint Black v2** is a modern, minimalist productivity web application built for people who value  
+**focus, discipline, and clarity**.
 
-Unlike traditional task managers that overwhelm users with colors, buttons, and noise, Mint Black v2 embraces **darkness, silence, and simplicity** — allowing your goals to stand out while distractions fade away.
+Unlike traditional task managers filled with noise, colors, and distractions, Mint Black v2 embraces  
+**darkness, silence, and simplicity** — letting your goals stand out while everything else fades away.
 
-This project focuses on **visual calm**, **smooth motion**, and **intentional design**, making productivity feel premium, focused, and powerful.
+The experience is crafted around **visual calm**, **smooth micro-animations**, and **intentional design**,  
+making productivity feel premium and powerful.
 
 > Build in silence. Let the work speak.
 
@@ -25,16 +28,16 @@ This project focuses on **visual calm**, **smooth motion**, and **intentional de
 
 ## 🎯 Purpose & Vision
 
-The goal of Mint Black v2 is simple:
+The vision behind Mint Black v2 is simple yet powerful:
 
 - Reduce visual clutter  
 - Increase mental clarity  
 - Encourage consistent execution  
 
-The app is designed to feel more like a **workspace** than a typical to-do list.  
-Every animation, color, and interaction is intentional — nothing is random.
+This app feels more like a **focused workspace** than a normal to-do list.  
+Every animation, color choice, and interaction has meaning — nothing is random.
 
-Mint Black v2 is ideal for:
+Perfect for:
 - Developers  
 - Designers  
 - Students  
@@ -46,55 +49,56 @@ Mint Black v2 is ideal for:
 ## ✨ Key Features
 
 <p align="center">
-  <img src="https://drive.google.com/uc?export=view&id=1hh8hRfNvkGm4aKEVUKPL9Zg4rv2qKjJQ" width="750" alt="Mint Black v2 Features">
+  <img src="https://ibb.co/k25hRg4y" width="750" alt="Mint Black v2 Features">
 </p>
 
 ### 🖤 Dark & Mint Design System
-A premium **pure-black interface** paired with subtle **mint-green highlights** to reduce eye strain and improve focus.
+A **pure-black UI** paired with subtle **mint-green accents** to reduce eye strain and improve focus.
 
 ### 🎯 Smart Task Management
-- Add tasks instantly  
+- Instantly add tasks  
 - Mark tasks as complete  
-- Archive completed goals  
+- Archive finished goals  
 - Delete tasks smoothly  
 
-All interactions are animated for a refined experience.
+All interactions are enhanced with subtle animations for a refined experience.
 
 ### 📊 Real-Time Progress Tracking
-A live progress bar visually reflects how much work is completed — reinforcing motivation through feedback.
+A live progress bar visually represents completion — turning progress into motivation.
 
 ### 💡 Motivation Hub
-A dedicated section filled with powerful, short-form motivational lines designed to reset focus and mindset.
+Short, powerful motivational lines designed to reset your mindset and sharpen focus.
 
 ### 🎉 Completion Celebration
-When all tasks are completed, Mint Black v2 rewards you with a subtle confetti animation — celebrating progress without distraction.
+Complete all tasks and receive a **minimal confetti celebration** — rewarding progress without breaking focus.
 
-### ⌨️ Productivity Keyboard Shortcuts
+### ⌨️ Keyboard-First Productivity
 - `N` → Focus task input  
 - `Enter` → Add task  
 - `Esc` → Exit input  
 
-Keyboard-first workflow for speed and efficiency.
+Built for speed and efficiency.
 
 ### 💾 Persistent Local Storage
-All data is saved locally using the browser’s LocalStorage API — no login required, no data tracking.
+All tasks are stored locally using the **LocalStorage API** —  
+no login, no tracking, full privacy.
 
 ---
 
 ## 🧠 How Mint Black v2 Works
 
 <p align="center">
-  <img src="https://drive.google.com/uc?export=view&id=1S4bhRIzE09RTHVMGfLP7e4gv2208QgdH" width="750" alt="How Mint Black v2 Works">
+  <img src="https://ibb.co/WNhDr47y" width="750" alt="How Mint Black v2 Works">
 </p>
 
 1. **Launch the Workspace**  
-   Start in a clean, immersive environment designed for focus.
+   Enter a clean, immersive environment built for focus.
 
 2. **Create Goals**  
-   Add tasks that represent real objectives — not noise.
+   Add only meaningful tasks — no clutter.
 
 3. **Execute with Focus**  
-   Complete tasks one by one without distractions.
+   Work through tasks one at a time, distraction-free.
 
 4. **Review & Reflect**  
    Archive completed work and track progress visually.
@@ -108,16 +112,16 @@ All data is saved locally using the browser’s LocalStorage API — no login re
 
 Mint Black v2 is built using **pure web technologies** — no frameworks, no dependencies.
 
-- **HTML5** – Semantic structure  
+- **HTML5** – Semantic, clean structure  
 - **CSS3** – Custom variables, animations, dark UI system  
-- **Vanilla JavaScript** – App logic and state management  
+- **Vanilla JavaScript** – App logic & state management  
 - **LocalStorage API** – Persistent data storage  
 
-This ensures:
-- Fast load times  
-- High performance  
-- Maximum compatibility  
-- Easy customization  
+### Why this stack?
+- ⚡ Fast load times  
+- 🚀 High performance  
+- 🌍 Maximum compatibility  
+- 🧩 Easy customization  
 
 ---
 
@@ -125,7 +129,7 @@ This ensures:
 
 🔗 **https://mintblack.netlify.app/**
 
-You can use Mint Black v2 directly in your browser — no installation required.
+No installation required — open and start focusing instantly.
 
 ---
 
